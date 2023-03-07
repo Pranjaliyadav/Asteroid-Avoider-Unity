@@ -19,23 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Touchscreen.current.primaryTouch.press.isPressed)
-        {
-            Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-
-            Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
-
-            movementDirection =  transform.position - worldPosition; //player will move away from your finger, if we do it other way around, it'll move toward our fingers. suppose transform positon is 0,0,0 and world is 2,2,0, we'll get -2,-2,0 diagonally bottom left
-
-            movementDirection.z = 0f;
-            movementDirection.Normalize(); //WD - diagonally middle moment
-            
-
-        }
-        else
-        {
-            movementDirection = Vector3.zero;
-        }
+        ProcessInput();
+        KeepPlayerOnScreen();
+        
 
     }
     private void FixedUpdate()
@@ -51,7 +37,57 @@ public class PlayerMovement : MonoBehaviour
         }
         rb.AddForce(movementDirection * forceMagnitude * Time.deltaTime, ForceMode.Force);
 
-        rb.velocity =  Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+        rb.velocity =  Vector3.ClampMagnitude(rb.velocity, maxVelocity); //wont let rb velocity go more than maxVelocity.
 
+    }
+    private void ProcessInput()
+    {
+        if (Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+
+            Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
+
+            movementDirection = transform.position - worldPosition; //player will move away from your finger, if we do it other way around, it'll move toward our fingers. suppose transform positon is 0,0,0 and world is 2,2,0, we'll get -2,-2,0 diagonally bottom left
+
+            movementDirection.z = 0f;
+            movementDirection.Normalize(); //WD - diagonally middle moment
+
+
+        }
+        else
+        {
+            movementDirection = Vector3.zero;
+        }
+    }
+    private void KeepPlayerOnScreen()
+    {
+        Vector3 newPosition = transform.position;
+        Vector3 viewportPosition =  mainCamera.WorldToViewportPoint(transform.position);
+
+        if(viewportPosition.x > 1)
+        {
+            //if gone on right side of screen
+            newPosition.x = -newPosition.x + 0.1f;
+        }
+
+        else if (viewportPosition.x < 0)
+        {
+            //if gone on left side of screen
+            newPosition.x = -newPosition.x - 0.1f;
+        }
+        if (viewportPosition.y > 1)
+        {
+            //if gone on down side of screen
+            newPosition.y = -newPosition.y + 0.1f;
+        }
+
+        else if (viewportPosition.y < 0)
+        {
+            //if gone on up side of screen
+            newPosition.y = -newPosition.y - 0.1f;
+        }
+
+        transform.position = newPosition;
     }
 }

@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
     {   
         if(rb.velocity == Vector3.zero) { return; }
 
-        Quaternion targetRotation =  Quaternion.LookRotation(rb.velocity,Vector3.back);
+        Quaternion targetRotation =  Quaternion.LookRotation(rb.velocity,Vector3.back);//vector3.back is the green transform position direction
         
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
         //when we are farther from our rotation location we rotate faster, when we are close we rotate slower

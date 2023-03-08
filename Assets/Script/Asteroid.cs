@@ -14,4 +14,9 @@ public class Asteroid : MonoBehaviour
         }
         playerHealth.Crash();
     }
+
+    private void OnBecameInvisible()
+    {   //destroy aestroid when they go out of the screen otherwise they'll just keep spaawning and never destroyed and will drop fram rate and use more memory
+        Destroy(gameObject);
+    }
 }

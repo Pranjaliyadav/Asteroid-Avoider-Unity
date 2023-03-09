@@ -909,7 +909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &764849405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1651,7 +1651,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1191254943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1439305327}
+        m_TargetAssemblyTypeName: GameOverHandler, Assembly-CSharp
+        m_MethodName: ContinueButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1191254943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2191,6 +2203,8 @@ MonoBehaviour:
   asteroidSpawner: {fileID: 1836464561}
   gameOverText: {fileID: 1022515066}
   scoreSystem: {fileID: 1358267763}
+  player: {fileID: 1893451324}
+  continueBtn: {fileID: 1191254942}
 --- !u!1 &1444172506
 GameObject:
   m_ObjectHideFlags: 0

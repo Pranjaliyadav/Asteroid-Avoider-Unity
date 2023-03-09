@@ -31,5 +31,9 @@ public class ScoreSystem : MonoBehaviour
         return Mathf.FloorToInt(score); //returning here, as we'll call this in gameOverHandler
     }
 
+    public void StartTimer()
+    {
+        shouldCount = true;
+    }
 
 }

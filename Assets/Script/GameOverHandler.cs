@@ -17,8 +17,8 @@ public class GameOverHandler : MonoBehaviour
     {
         asteroidSpawner.enabled = false; //asteroid wont instantiate on screem
 
-        int finalScore = scoreSystem.EndTimer();
-        gameOverText.text = $"Your Score: {finalScore}";
+        int finalScore = scoreSystem.EndTimer(); //score will be shared here
+        gameOverText.text = $"Your Score: {finalScore}"; //altern that gameover text we set up earliar
 
         gameOverDisplay.gameObject.SetActive(true);
     }
